@@ -1,0 +1,166 @@
+/* Hanken Grotesk — SIL Open Font License 1.1 */
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("fonts/hanken-grotesk.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --paper: #f4f1ea;
+  --ink: #16150f;
+  --muted: #7b776c;
+  --gutter: clamp(16px, 4vw, 56px);
+}
+
+* { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Hanken Grotesk", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
+
+/* Header — blends against whatever is behind it */
+.top {
+  position: fixed; inset: 0 0 auto 0; z-index: 10;
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 20px var(--gutter);
+  color: #fff; mix-blend-mode: difference;
+  font-size: 14px; letter-spacing: 0.01em;
+}
+.top .name { font-weight: 600; white-space: nowrap; transition: opacity 0.3s ease; }
+.at-top .top .name { opacity: 0; pointer-events: none; }
+.top nav { display: flex; align-items: baseline; gap: clamp(14px, 2.4vw, 32px); }
+.lang {
+  font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+  display: inline-flex; gap: 4px;
+}
+.lang span { opacity: 0.45; }
+.lang span.on { opacity: 1; }
+.lang i { font-style: normal; opacity: 0.45; }
+
+/* Hero */
+.hero { position: relative; height: 100svh; min-height: 420px; }
+.hero img { height: 100%; object-fit: cover; object-position: 35% 50%; }
+/* Signature — small, bottom right, like a signed print */
+.hero h1 {
+  position: absolute; right: var(--gutter); bottom: 14px;
+  width: clamp(150px, 16vw, 270px);
+}
+.hero h1 img { height: auto; }
+.hero-line {
+  position: absolute; left: var(--gutter); bottom: 24px;
+  color: #fff; font-size: 14px;
+}
+
+/* Intro */
+.intro {
+  padding: clamp(72px, 14vw, 200px) var(--gutter);
+  display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(16px, 2.5vw, 32px); align-items: end;
+}
+.intro p {
+  grid-column: 1 / 8;
+  font-size: clamp(26px, 3.6vw, 56px);
+  line-height: 1.12; letter-spacing: -0.02em; font-weight: 400;
+  text-wrap: balance;
+}
+.intro img { grid-column: 8 / 13; }
+
+/* Full-width image between sections */
+.bleed { margin-bottom: clamp(88px, 13vw, 190px); }
+.bleed img { max-height: 92svh; object-fit: cover; }
+
+/* Sections */
+.block { padding: 0 var(--gutter) clamp(88px, 13vw, 190px); }
+h2 {
+  font-size: 14px; font-weight: 400; color: var(--muted);
+  padding-top: 14px; margin-bottom: clamp(24px, 4vw, 48px);
+  border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+/* Film */
+.films { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 5vw, 72px) clamp(16px, 2.5vw, 32px); }
+.film.wide { grid-column: 1 / -1; }
+.frame {
+  display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0;
+  background: #000; overflow: hidden; cursor: pointer; position: relative;
+}
+.frame img { height: 100%; object-fit: cover; transition: transform 0.7s ease, opacity 0.3s ease; }
+.frame:hover img { transform: scale(1.02); opacity: 0.88; }
+/* Play button over each film cover */
+button.frame::before {
+  content: ""; position: absolute; left: 50%; top: 50%; z-index: 1;
+  width: clamp(56px, 6vw, 88px); aspect-ratio: 1; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+button.frame::after {
+  content: ""; position: absolute; left: 50%; top: 50%; z-index: 2;
+  width: clamp(14px, 1.6vw, 22px); aspect-ratio: 0.86;
+  transform: translate(-35%, -50%);
+  background: var(--ink);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+button.frame:hover::before { transform: translate(-50%, -50%) scale(1.08); background: #fff; }
+
+.frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.film h3 { font-size: 16px; font-weight: 400; margin-top: 12px; display: flex; gap: 14px; }
+.film h3 span { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* About — the text stands on its own, the photos sit below in an even grid */
+.about-text {
+  max-width: 34em;
+  font-size: clamp(19px, 1.9vw, 28px); line-height: 1.35; letter-spacing: -0.005em;
+}
+.about-text p + p { margin-top: 0.9em; }
+.about-images {
+  display: grid; grid-template-columns: repeat(12, 1fr);
+  gap: clamp(10px, 1.6vw, 22px);
+  margin-top: clamp(64px, 9vw, 140px);
+}
+.about-images img { height: 100%; object-fit: cover; }
+.about-images .p { grid-column: span 3; aspect-ratio: 2 / 3; }
+.about-images .l { grid-column: span 6; aspect-ratio: 3 / 2; }
+
+/* Contact */
+.contact { display: flex; flex-direction: column; align-items: flex-start; }
+.contact h2 { align-self: stretch; }
+.mail {
+  font-size: clamp(26px, 6.4vw, 96px); letter-spacing: -0.03em; line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+.ig { margin-top: 20px; }
+
+footer {
+  display: flex; justify-content: space-between;
+  padding: 20px var(--gutter); font-size: 14px; color: var(--muted);
+}
+
+@media (max-width: 700px) {
+  .films { grid-template-columns: 1fr; }
+  .intro p { grid-column: 1 / -1; }
+  .intro img { grid-column: 3 / -1; margin-top: 32px; }
+  .about-images .p { grid-column: span 6; }
+  .about-images .l { grid-column: 1 / -1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .frame img { transition: none; }
+}
+
+/* Very narrow screens: tighten the menu so it stays on one line */
+@media (max-width: 340px) {
+  .top { font-size: 12.5px; }
+  .top nav { gap: 9px; }
+}
